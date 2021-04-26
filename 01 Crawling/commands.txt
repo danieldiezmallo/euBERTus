@@ -1,0 +1,7 @@
+C:\Users\danid\"Google Drive"\tfm_code\.pyvenv\Scripts\activate
+
+cd C:\Users\danid\Google Drive\tfm_code\01 Crawling\crawler
+
+scrapy crawl --nolog eu_data_spider -o ..\\..\\data\\01_crawled\\eu_data\\metadata.json -a output_directory=..\\..\\data\\01_crawled\\eu_data\\text\\ -a path_to_file=..\\..\\data\\00_raw\\extracted\\eu_data_preprocessed.csv
+
+scrapy crawl --nolog us_data_spider -o ..\\..\\data\\01_crawled\\us_data\\metadata.json -a output_directory=..\\..\\data\\01_crawled\\us_data\\text\\
