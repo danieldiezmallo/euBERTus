@@ -40,7 +40,7 @@ class UsDataSpiderSpider(scrapy.Spider):
             except Exception as e:
                 print(e)
             try:
-                text = textract.process(path, encoding='ascii').decode('ascii') 
+                text = textract.process(path, encoding='UTF-8').decode('UTF-8') 
             except Exception as e:
                 print(e)
                 text = ''
@@ -60,14 +60,14 @@ class UsDataSpiderSpider(scrapy.Spider):
                 text, title = file_text_parser(url)
                 idx = len(os.listdir(self.output_directory))+1
                 # Save the text
-                with open(f"{self.output_directory}{idx}", 'w') as f:
+                with open(f"{self.output_directory}{idx}", 'wb') as f:
                     for paragraph in text.split('\n'):
                         try:
-                            f.write(paragraph)
+                            f.write(f'{paragraph}\n'.encode("UTF-8"))
                         except Exception as e:
                             # If a paragraph encounters an error, ignore it
+                            print('Could not write paragraph')
                             pass
-                        f.write('\n')  
                 
                 # As the results are not yielded every time, save them manually in the metadata file
                 result = dict(

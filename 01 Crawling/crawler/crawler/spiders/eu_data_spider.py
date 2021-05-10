@@ -35,14 +35,13 @@ class EuDataSpiderSpider(scrapy.Spider):
         
         # Find the relevant paragraphs in the html documents
         paragraphs = response.xpath('//p/text()|//span/text()|//h1/text()|//h2/text()|//h3/text()').extract()
-        with open(f"{self.output_directory}{response.meta['id']}", 'w') as f:
+        with open(f"{self.output_directory}{response.meta['id']}", 'wb') as f:
             for paragraph in paragraphs:
                 try:
-                    f.write(paragraph)
+                    f.write(f'{paragraph}\n'.encode("UTF-8"))
                 except Exception as e:
                     # If a paragraph encounters an error, ignore it
                     pass
-                f.write('\n')
         
         yield dict(
                     id = response.meta['id'],
